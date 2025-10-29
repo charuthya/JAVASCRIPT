@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .login-box input:focus {
+            border: 2px solid #ffffff;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: #ffffff;
+            color: #2575fc;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-box button:hover {
+            background: #e3e7ff;
+            transform: scale(1.05);
+        }
+
+        .error {
+            color: #ffb3b3;
+            margin-top: 12px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Enter Email" required>
+    <input type="password" id="password" placeholder="Enter Password" required>
+    <button onclick="login()">Login</button>
+   
+</div>
+
+<script>
+    function login() {
+        let email = document.getElementById("email").value;
+        let pass = document.getElementById("password").value;
+
+        let correctEmail = "charu@gmail.com";
+        let correctPassword = "charu";
+
+        if (email === correctEmail && pass === correctPassword) {
+            alert("Login Successful!");
+        } else {
+             alert("Invalid Email or Password");
+        }
+    }
+</script>
+
+</body>
+</html>
+
