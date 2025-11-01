@@ -17,13 +17,28 @@
 
 //Child
 
-function TraversingElementChild(){
-let childClass = document.querySelector(".parent")
-console.log(childClass.childElementCount)
-console.log(childClass.childNodes)   // childNode have some text in default  ChildNodes = Element Node + Text Node
-console.log(childClass.children)     // HTML Collections of div element child tag = 3
-console.log(childClass.firstChild)
-console.log(childClass.firstElementChild)
-console.log(childClass.lastChild)
-console.log(childClass.lastElementChild)
-}
+// function TraversingElementChild(){
+// let childClass = document.querySelector(".parent")
+// console.log(childClass.childElementCount)
+// console.log(childClass.childNodes)   // childNode have some text in default  ChildNodes = Element Node + Text Node
+// console.log(childClass.children)     // HTML Collections of div element child tag = 3
+// console.log(childClass.firstChild)
+// console.log(childClass.firstElementChild)
+// console.log(childClass.lastChild)
+// console.log(childClass.lastElementChild)
+// }
+
+
+
+//Siblings
+ function TraversingElementSibling(){
+    let sibling = document.querySelector(".child2")
+    console.log(sibling);
+    console.log(sibling.nextSibling);
+    console.log(sibling.previousSibling)
+    console.log(sibling.nextElementSibling)
+    console.log(sibling.previousElementSibling)
+    
+    
+ }
+//  TraversingElementSibling()

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color-Change</title>
+</head>
+
+<body id="colorchange"></body>
+    <h1>Color Change</h1>
+    <button onclick="colorChange()">Click Here</button>
+    <script>
+        let array = ["red","pink","grey","skyblue","yellow","orange","brown","white"]
+        let i=0
+        function colorChange()
+        {
+            document.getElementById("colorchange").style.background = array[i];
+            i++;
+        }
+    </script>
+</body>
+
+</html>
