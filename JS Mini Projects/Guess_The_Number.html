@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess-The-Number</title>
+
+    <!-- CSS Styling -->
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background: linear-gradient(135deg, #8E2DE2, #4A00E0);
+            color: white;
+        }
+
+        input{
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            margin: 10px;
+            outline: none;
+            text-align: center;
+        }
+
+        button{
+            padding: 8px 15px;
+            background: white;
+            border: none;
+            border-radius: 6px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover{
+            background: yellow;
+        }
+
+        #message1{
+            font-size: 22px;
+            margin-top: 15px;
+        }
+
+        #message2{
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess-The-Number</h1>
+    <p id="message1"></p>
+    <p id="message2"></p>
+
+    Enter the Number (1 - 10): 
+    <input type="number" min="1" max="10">
+    <button onclick="guess()" id="guess">Guess</button>
+    <button onclick="reset()" id="reset">Reset</button>
+
+    <!-- ✅ Sound Effect -->
+    <audio id="winSound">
+        <source src="https://www.fesliyanstudios.com/play-mp3/4381" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let randomNumber,input
+        function guess()
+        {
+            randomNumber = Math.floor(Math.random()*10) + 1
+            input = Number (document.querySelector("input").value)
+
+            if(randomNumber === input){
+                document.querySelector("#message1").innerHTML= "You Guessed the Correct Number 🤩 "+ randomNumber;
+                document.querySelector("#message2").innerHTML = "";
+                
+                // ✅ Play Sound when correct
+                document.getElementById("winSound").play();
+
+                disableButtons();
+            }
+            else if(randomNumber > input)
+            {
+                document.querySelector("#message2").innerHTML = "My number is greater than " +input
+                // disableButtons();
+            }
+            else if (randomNumber < input )
+            {
+                document.querySelector("#message2").innerHTML = "My number is less than " +input
+                // disableButtons();
+            }
+            else{
+                document.querySelector("#message2").innerHTML = "Better Luck Next Time"
+            }
+        }
+
+        function disableButtons(){
+            document.getElementById("guess").disabled = true
+        }
+
+        function reset(){
+            location.reload();
+        }
+    </script>
+</body>
+</html>

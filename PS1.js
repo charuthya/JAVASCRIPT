@@ -26,11 +26,11 @@
 // console.log(array)
 
 
-export function fun()
-{ 
-    console.log(10)
-    console.log("LOL")
-}
+// export function fun()
+// { 
+//     console.log(10)
+//     console.log("LOL")
+// }
 
 
 

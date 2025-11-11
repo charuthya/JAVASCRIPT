@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cricket Game</title>
+
+<style>
+    body{
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('pic10.jpg');
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container{
+        width: 90%;
+        height: 90%;
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(6px);
+    }
+
+    /* LEFT SIDE PANEL */
+    .left-panel{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background: rgba(0,0,0,0.45);
+        border-radius: 15px;
+        padding: 25px;
+        color: white;
+    }
+
+    h1{
+        text-align: center;
+        text-shadow: 0px 0px 15px rgb(70, 202, 202);
+        margin-top: 0;
+    }
+
+    #currentPlayerBox{
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: center;   
+    }
+
+    /* BALL BUTTON */
+    #playBall{
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, #ff4b4b, #7a0000);
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: white;
+        font-weight: bold;
+        transition: .3s;
+        margin-top: 25px;
+        box-shadow: 0px 0px 30px red;
+        align-self: center;
+    }
+    #playBall:hover{
+        transform: scale(1.22) rotate(-12deg);
+        box-shadow: 0px 0px 60px red;
+    }
+
+    #startBtn{
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        background: #00e6ff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: .3s;
+        align-self: center;
+    }
+    #startBtn:hover{ transform: scale(1.08); background :white; }
+
+    /* SCORE DISPLAY */
+    #scoreDisplay, #ballDisplay{
+        font-size: 26px;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* RIGHT TABLE */
+    .score-table{
+        width: 50%;
+        background: rgba(255,255,255,0.2);
+        padding: 20px;
+        border-radius: 15px;
+        overflow-y: auto;
+        color: rgb(0, 0, 0);
+    }
+
+    table{ width: 100%; border-collapse: collapse; text-align: center; }
+    th{ background: rgba(244, 220, 220, 0.6); padding: 10px; }
+    td{ padding: 10px; background: rgba(242, 224, 224, 0.3);}
+
+    /* POPUP EFFECT FOR 4 & 6 */
+    #popupMsg{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        font-size: 60px;
+        font-weight: bold;
+        color: yellow;
+        text-shadow: 0px 0px 20px orange;
+        animation: none;
+        pointer-events: none;
+    }
+
+    @keyframes pop {
+        0%{ transform: translate(-50%,-50%) scale(0); opacity: 0;}
+        50%{ transform: translate(-50%,-50%) scale(1.6); opacity: 1;}
+        100%{ transform: translate(-50%,-50%) scale(0); opacity: 0;}
+    }
+</style>
+</head>
+
+<body>
+
+<div id="popupMsg"></div>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="left-panel">
+        <h1>🏏 Cricket Super Over 🏏</h1>
+
+        <button id="startBtn">Start Player</button>
+
+        <div id="currentPlayerBox">Click Start to Begin</div>
+
+        <button id="playBall">BALL</button>
+
+        <div id="scoreDisplay"></div>
+        <div id="ballDisplay"></div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="score-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Player Name</th>
+                    <th>Total Runs</th>
+                    <th>4s</th>
+                    <th>6s</th>
+                    <th>Balls</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="resultBody"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+let players =  ["Rohit Sharma","Shubman Gill","Virat Kohli","Shreyas Iyer","KL Rahul","Suryakumar Yadav","Hardik Pandya","Ravindra Jadeja","Jasprit Bumrah","Mohammed Shami","Kuldeep Yadav"];
+let currentPlayerIndex = -1;
+let totalRuns = 0, fours = 0, sixes = 0, balls = 0;
+
+document.getElementById("playBall").disabled = true;
+
+function popup(text){
+    let pop = document.getElementById("popupMsg");
+    pop.innerHTML = text;
+    pop.style.animation = "pop 1s ease";
+    setTimeout(()=>{ pop.style.animation=""; },1000);
+}
+
+document.getElementById("startBtn").onclick = function(){
+    currentPlayerIndex++;
+    if(currentPlayerIndex >= players.length){
+        alert("🏁 All players finished!");
+        return;
+    }
+
+    totalRuns = 0; fours = 0; sixes = 0; balls = 0;
+
+    document.getElementById("currentPlayerBox").innerHTML = "Current Player: <span style='color:yellow'>" + players[currentPlayerIndex] + "</span>";
+    document.getElementById("scoreDisplay").innerHTML = "Runs: 0";
+    document.getElementById("ballDisplay").innerHTML = "Balls Left: 6";
+    document.getElementById("playBall").disabled = false;
+};
+
+document.getElementById("playBall").onclick = function(){
+    let score = Math.floor(Math.random() * 7);
+    balls++;
+
+    if(score === 4){ fours++; popup("🏏 FOUR!"); }
+    if(score === 6){ sixes++; popup("💥 SIX!"); }
+
+    if(score === 0){
+        endPlayer("OUT");
+        return;
+    }
+
+    totalRuns += score;
+    document.getElementById("scoreDisplay").innerHTML = "Runs: " + totalRuns;
+    document.getElementById("ballDisplay").innerHTML = "Balls Left: " + (6 - balls);
+
+    if(balls >= 6){
+        endPlayer("NOT OUT");
+    }
+};
+
+function endPlayer(status){
+    document.getElementById("playBall").disabled = true;
+
+    let row = `<tr><td>${players[currentPlayerIndex]}</td><td>${totalRuns}</td><td>${fours}</td><td>${sixes}</td><td>${balls}</td><td>${status}</td></tr>`;
+    document.getElementById("resultBody").innerHTML += row;
+
+    document.getElementById("currentPlayerBox").innerHTML = players[currentPlayerIndex] + " is " + status + "!";
+}
+</script>
+
+</body>
+</html>

@@ -22,6 +22,11 @@ function ManipulatingElement(){
     // orderlist.replaceChild(newListItem,orderlist.children[2])
     // orderlist.removeChild(orderlist.children[0])
     // orderlist.remove()
+
+    newListItem.style.color="white"
+    newListItem.style.boxShadow="3px 3px 5px"
+    newListItem.style.textShadow="35px 3px 5px"
     orderlist.prepend("Text Node",newListItem)
+
 
 }

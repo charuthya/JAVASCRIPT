@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip Game</title>
+
+    <style>
+        body{
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: rgb(38, 162, 239);
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding-top: 120px;
+        }
+        h2{
+            font-size: 35px;
+            text-shadow: 2px 2px 5px black;
+        }
+        button{
+            background: rgba(255,255,255,0.85);
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover{
+            background: yellow;
+            color: black;
+            transform: scale(1.1);
+        }
+        #head{
+            margin-top: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px black;
+        }
+    </style>
+</head>
+<body>
+    <h2>Coin Flip Game</h2>
+    <button onclick="player1()" id="p1">Player 1</button><br><br>
+    <p id="player1"></p>
+    <button onclick="flip()">Flip Coin</button><br><br>
+    <button onclick = "reset()">Reset</button> <br><br>
+    <button onclick="player2()" id="p2">Player2</button><br><br>
+    <p id ="player2"></p>
+
+    <p id ="head"></p>
+    <p id ="count1"></p>
+    <p id ="count2"></p>
+
+    <!-- ✅ Coin Sound Added -->
+    <audio id="coinSound" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+    <script>
+
+       let random,count=0,count1=0;
+       function player1(){
+        document.querySelector("#player1").innerHTML = "YOU"
+        disableButton1();
+        flip();
+
+       }
+       function player2(){
+        disableButton2();
+        document.querySelector("#player2").innerHTML = "OPPONENT"
+        flip();
+       }
+
+
+       function flip(){
+        // ✅ Play Sound
+        document.getElementById("coinSound").play();
+
+        random = Math.floor(Math.random()*2)
+        if(random == 1){
+            count++;
+            document.querySelector("#head").innerHTML = "Head 😊";
+            document.querySelector("#count1").innerHTML = "Total Head = "+count
+
+        }
+        else{
+            
+            count1++;
+            document.querySelector("#head").innerHTML = "Tail 😎";
+            document.querySelector("#count2").innerHTML = "Total  Tail = "+count1
+            disableButton2();
+            
+        }
+       } 
+      
+       function reset()
+       {
+        location.reload();
+       }
+
+       function disableButton1(){
+        document.querySelector("#p2").disabled=true;
+        // document.querySelector("#player1").disabled=false;
+       }
+
+       function disableButton2(){
+        document.querySelector("#p1").disabled=true;
+        document.querySelector("#p2").disabled=false;
+       }
+       
+
+    </script>
+</body>
+</html>

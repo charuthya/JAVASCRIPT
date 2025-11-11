@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #b89494;
+    margin-left: 300px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100vh;
+    background: url(/cricket-img.jpg) no-repeat center center/cover;
+   
+  }
+  #bat {
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 10px 25px;
+    font-size: 18px;
+    background-color: orange;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #condiner{
+    border: 1px solid;
+    padding: 20px;
+     background-color: #5ad2d2;
+      border: 1px solid #ddd; 
+      border-radius: 10px; 
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+   
+  #sub-condiner{
+    display: flex;
+    justify-content:center ;
+  }
+
+  #bat:hover {
+    background-color: darkorange;
+  }
+   table {
+      border-collapse: collapse;
+      margin-left: 50px;
+      background: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #aaa;
+    }
+
+    th {
+      background: #66a6ff;
+      color: white;
+    }
+   
+</style>
+</head>
+<body>
+<div id="condiner">
+  
+  <h4 style="font-size: 13px;color: #080707;margin-bottom: 10px;">Score Board</h4>
+  <h4 style="font-size: 20px;color: #c40808;margin-bottom: 10px; text-align: center;">India <span style="color: black;font-size: 13px;">vs</span> Ast</h4>
+     <div style="  width: 450px; background-color:rgb(225, 225, 225); border: 1px solid #efe1e1; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); padding: 10px 30px;">
+     <span id="today" style=" float: right;color: #888;font-size: 12px;">Today</span>
+  <p>T20</p>
+  <p style="color: blue;">India</p>
+  <h3 id="points" style="display:flex;justify-content: center;" >0</h3>
+  <div style=" display: flex; align-items: center; justify-content: space-between;">
+  
+  <div>  
+  <p id="player" style="font-weight: bold; font-size: 14px;">Player : (Shubman Gill)<span id="score" style="margin-left:10px;"></span></p>
+   </div>
+        <p id="four" style="font-size: 14px;"></p></div></div>
+    <div id="sub-condiner">
+     
+      <div style="display: flex; gap: 10px;">
+     <h2 id="totals"style="display: block; margin: 40px auto; margin-bottom: 10px; ">Total Score : </h2>
+     <p id="overs" style="margin-top: 42px;"></p>
+     </div>
+     </div>
+       <p id="status" style="margin-bottom: 20px; text-align: center;"></p>
+       
+    <button id="bat" onclick="num()" style="display: block; margin: 1px auto; margin-bottom: 20px;">Bat 🏏</button>
+
+</div>
+
+<table id="score-table">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Runs</th>
+      <th>Balls</th>
+      <th>4s</th>
+      <th>6s</th>
+    </tr>
+  </thead>
+  <tbody id="score-body"></tbody>
+</table>
+
+ 
+ <script> 
+  let total=0;
+  let wicket=0; 
+  const players=["Shubman Gill","Virat Kohli","Suryakumar Yadav","KL Rahul","Sanju Samson","Rishabh Pant","MS Dhoni","Harthik Pandiya","R.Ashwin","Jasprit Bumrah"];//,"p6","p7","p8","p9","p10"
+  let curplayer=0; 
+  let balls=0;
+  let overs=0;
+  let induvitualplayerscore=0; 
+
+     function num(){
+
+      
+       if(overs === 5||curplayer >=players.length){ 
+
+       document.getElementById('status').innerHTML = "Match Over!"; 
+       document.getElementById('status').style.color="blue";
+       document.getElementById("bat").disabled = true;// stop
+       document.getElementById('totals').innerText=" Final Score is : "+total +"/"+wicket;
+       document.getElementById('totals').style.color="red"; 
+       return;
+    }
+       let number=Math.floor(Math.random()*7); 
+      
+        if(number === 0){
+           wicket ++; 
+         
+             document.getElementById('points').innerText = players[curplayer]+" is out!" //player out
+             //  //document.getElementById('points').style.color = "red"; 
+             curplayer++; 
+             if(curplayer<players.length){
+               document.getElementById('player').innerText = "Next Player : ( " + players[curplayer]+" )"; 
+              } 
+              else { 
+                document.getElementById("points").innerText = "All players are out!"; 
+                document.getElementById("points").style.color = "Red";
+                 document.getElementById("bat").disabled = true; 
+                } } 
+                else {
+                   total +=number;
+                   const s = scores[curplayer];
+                    s.runs += number;
+                    s.balls++;
+                  if (number === 4) s.fours++;
+                  if (number === 6) s.sixes++;
+                        updateTable(); 
+                    document.getElementById('points').innerText = "You hit " + number + " runs!";
+                     document.getElementById("today").innerText = "• Live"; 
+                     document.getElementById("today").style.color = "green"; 
+                  if(number===4){
+                       document.getElementById('four').innerText = "Boundary!"; 
+                     document.getElementById('four').style.color="blue" 
+                  
+                    }
+                    else if(number===6){ 
+                      document.getElementById('four').innerText = "Sixer!";
+                       document.getElementById('four').style.color="green";
+                      
+                      }
+                      else{ document.getElementById('four').innerText = ""; 
+                      }} 
+                      document.getElementById('totals').innerText=" Total Score is : "+total +"/"+wicket; 
+                    
+                     balls++; 
+                   if(balls===6){
+                       overs++; 
+                       balls=0;
+                       }
+                        document.getElementById('overs').innerText =" ("+overs+"."+balls+")";
+          
+     } 
+
+        const scores = players.map(() => ({ runs: 0, balls: 0, fours: 0, sixes: 0 }));
+
+        const body = document.getElementById("score-body");
+
+  
+   players.forEach((player, i) => {
+    const row = body.insertRow();
+      row.insertCell().innerText = player;
+    row.insertCell().innerText = scores[i].runs;
+     row.insertCell().innerText = scores[i].balls;
+    row.insertCell().innerText = scores[i].fours;
+    row.insertCell().innerText = scores[i].sixes;
+    });
+
+  
+  function updateTable() {
+    [...body.rows].forEach((row, i) => {
+      const s = scores[i];
+      row.cells[1].innerText = s.runs;
+      row.cells[2].innerText = s.balls;
+      row.cells[3].innerText = s.fours;
+      row.cells[4].innerText = s.sixes;
+    });
+  }
+   </script>
+</body>
+</html>

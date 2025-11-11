@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Game</title>
+</head>
+<style>
+    body{
+        background-image: url('pic5.jpeg'); /* Cricket Image */
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    h2{
+        margin-top: 30px;
+        text-shadow: 2px 2px 5px black;
+    }
+
+    button{
+        background-color: rgb(255, 255, 255);
+        border: none;
+        margin: 10px;
+        padding: 12px;
+        width: 110px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover{
+        background-color:green;
+    }
+
+    #reset{
+        background-color: red;
+        color: white;
+    }
+</style>
+
+<body>
+    <h2>🏏 Cricket ScoreBoard Game</h2>
+    <p id="val"></p>
+    <p id="computerChoice"></p>
+    <p id="out"></p>
+    <p id="score"></p>
+    <p id="score1"></p>
+
+    <button onclick="One()" id="one">1</button>
+    <button onclick ="Two()" id="two">2</button>
+    <button onclick ="Three()" id="three">3</button><br><br>
+    <button onclick ="Four()" id="four">4</button>
+    <button onclick ="Five()" id="five">5</button>
+    <button onclick ="Six()" id="six">6</button><br><br>
+
+    <button onclick="resetGame()" id="reset">Reset Game</button>
+
+    <script>
+    let score   = 0,score1=0;
+     function One() { play(1); }
+     function Two(){ play(2); }
+     function Three(){ play(3); }
+     function Four(){ play(4); }
+     function Five(){ play(5); }
+     function Six(){ play(6); }
+     
+     function play(val){
+         score += val;
+         document.querySelector("#val").innerHTML = "Your Choice : "+val;
+          
+          let computerChoice = Math.floor(Math.random()*6)+1;
+          score1+=computerChoice;
+          document.querySelector("#computerChoice").innerHTML = "Computer Choice :"+computerChoice;
+
+          if(val == computerChoice){
+             document.querySelector("#out").innerHTML = "OUT 🚩";
+             disableButtons();
+          } else{
+              document.querySelector("#score").innerHTML = "Your Total Score is : " +score;
+              document.querySelector("#score1").innerHTML = "Computer Total Score is : " +score1;
+              
+          }
+     }
+     
+     function disableButtons(){
+        document.getElementById("one").disabled = true;
+        document.getElementById("two").disabled = true;
+        document.getElementById("three").disabled = true;
+        document.getElementById("four").disabled = true;
+        document.getElementById("five").disabled = true;
+        document.getElementById("six").disabled = true;
+     }
+
+     function resetGame(){
+        score = 0;
+        score1 = 0;
+        document.getElementById("val").innerHTML = "";
+        document.getElementById("computerChoice").innerHTML = "";
+        document.getElementById("out").innerHTML = "";
+        document.getElementById("score").innerHTML = "";
+        document.getElementById("score1").innerHTML = "";
+
+        document.getElementById("one").disabled = false;
+        document.getElementById("two").disabled = false;
+        document.getElementById("three").disabled = false;
+        document.getElementById("four").disabled = false;
+        document.getElementById("five").disabled = false;
+        document.getElementById("six").disabled = false;
+     }
+
+
+        
+    </script>
+</body>
+</html>
